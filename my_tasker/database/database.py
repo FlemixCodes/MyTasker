@@ -1,5 +1,3 @@
-import asyncio
-
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from my_tasker.config import BotConfig
@@ -107,4 +105,7 @@ class MongoDB:
             return e
 
 
-database = MongoDB()
+database = MongoDB(
+    myUrl=BotConfig.db_url.get_secret_value(),
+    database=BotConfig.db_name.get_secret_value(),
+)
