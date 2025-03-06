@@ -4,10 +4,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class BotConfig(BaseSettings):
     bot_token: SecretStr
-    db_name: SecretStr
-    db_user: SecretStr
-    db_host: SecretStr
-    db_password: SecretStr
+    db_url: SecretStr
+    db_database: SecretStr
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
 

@@ -1,4 +1,5 @@
 import coloredlogs
+
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.loggers import dispatcher, event, middlewares, scene, webhook
