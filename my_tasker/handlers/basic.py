@@ -11,7 +11,7 @@ router = Router(name="basic")
 
 @router.message(CommandStart())
 async def start_handler(message: Message):
-    out_text = "Приветствую! Я бот который напомнит тебе о задачах!"
+    out_text = "Приветствую! Я бот который поможет тебе с планировкой задач и напомнит об их выполнении!"
     await message.answer(out_text)
 
 
