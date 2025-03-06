@@ -23,3 +23,4 @@ class Emoji:
     ASK = "❓"
     WARNING = "⚠️"
     ERROR = "⛔️"
+    SETTINGS = "⚙️"
