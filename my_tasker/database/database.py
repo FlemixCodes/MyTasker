@@ -47,7 +47,7 @@ class MongoDB:
     async def ping(self):
         if await self.client.admin.command("ping"):
             return True
-        else:
+        else: 
             return False
 
     async def insertOne(self, collection: str, document: dict):
