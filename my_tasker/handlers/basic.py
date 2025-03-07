@@ -4,6 +4,7 @@ from aiogram import Router
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
 
+from my_tasker.keyboards.menu import menu_keyboard
 from my_tasker.config import Emoji, bot_config
 
 router = Router(name="basic")
@@ -21,3 +22,7 @@ async def ping_handler(message: Message):
 @router.message(Command("privacy"))
 async def privacy_handler(message: Message):
     await message.answer(f"{bot_config.privacy.get_secret_value()}")
+
+@router.message(Command("menu"))
+async def menu_handler(message: Message):
+    await message.answer(f"Выберите действие:", reply_markup=menu_keyboard.as_markup())
