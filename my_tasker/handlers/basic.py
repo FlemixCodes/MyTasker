@@ -6,23 +6,23 @@ from aiogram.types import Message
 
 from my_tasker.keyboards.menu import menu_keyboard
 from my_tasker.config import Emoji, bot_config
+from my_tasker.utils.lang import getString
 
 router = Router(name="basic")
 
 @router.message(CommandStart())
 async def start_handler(message: Message):
-    out_text = "Приветствую! Я бот который поможет тебе с планировкой задач и напомнит об их выполнении!"
-    await message.answer(out_text)
+    await message.answer(getString("get_start_text"))
 
 @router.message(Command("ping"))
 async def ping_handler(message: Message):
     latency = round(datetime.now().timestamp() - message.date.timestamp(), 2) * 1000
-    await message.answer(f"{Emoji.SETTINGS} Бот ответил за: <b>{latency}</b>мс.")
+    await message.answer(getString("get_ping_text").format(ej=Emoji.SETTINGS, lat=latency))
 
 @router.message(Command("privacy"))
 async def privacy_handler(message: Message):
-    await message.answer(f"{bot_config.privacy.get_secret_value()}")
+    await message.answer(getString("get_privacy_text"))
 
 @router.message(Command("menu"))
 async def menu_handler(message: Message):
-    await message.answer(f"Выберите действие:", reply_markup=menu_keyboard.as_markup())
+    await message.answer(getString("get_menu_text"), reply_markup=menu_keyboard.as_markup())
