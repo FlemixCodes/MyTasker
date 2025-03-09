@@ -1,10 +1,11 @@
 import coloredlogs
-
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
+from aiogram.fsm.storage.mongo import MongoStorage
 from aiogram.loggers import dispatcher, event, middlewares, scene, webhook
 
 from my_tasker.config import bot_config
+from my_tasker.database import client
 from my_tasker.handlers import routers_list
 
 
@@ -22,7 +23,7 @@ async def start_bot():
         default=DefaultBotProperties(parse_mode="HTML"),
     )
 
-    dp = Dispatcher()
+    dp = Dispatcher(storage=MongoStorage(client=client))
     dp.include_routers(*routers_list)
 
     await bot.delete_webhook(drop_pending_updates=True)

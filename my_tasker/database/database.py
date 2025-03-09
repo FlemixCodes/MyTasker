@@ -96,7 +96,7 @@ class MongoDB:
             return e
 
 
-database = MongoDB(
+client = MongoDB(
     my_url=bot_config.db_url.get_secret_value(),
     database=bot_config.db_database.get_secret_value(),
 )
