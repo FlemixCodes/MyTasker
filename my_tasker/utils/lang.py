@@ -14,11 +14,11 @@ strings = {
 }
 
 
-def getString(trackme, local="ru") -> str | None:
+def get_string(trackme, local="ru") -> str | None:
     if local == "ru":
-        str = strings.get(local, strings.get("ru"))
+        _str = strings.get(local, strings.get("ru"))
 
-        if str is None:
+        if _str is None:
             return
 
         return str.get(trackme)
