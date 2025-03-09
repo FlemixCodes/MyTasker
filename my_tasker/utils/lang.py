@@ -14,7 +14,7 @@ strings = {
 }
 
 
-def get_string(trackme, local="ru") -> str | None:
+def get_string(trackme: str, local: str = "ru") -> str | None:
     if local == "ru":
         _str = strings.get(local, strings.get("ru"))
 
@@ -22,3 +22,7 @@ def get_string(trackme, local="ru") -> str | None:
             return
 
         return str.get(trackme)
+
+
+def get_strings(local: str = "ru") -> dict | None:
+    return strings.get(local)
