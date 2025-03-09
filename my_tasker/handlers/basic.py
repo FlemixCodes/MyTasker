@@ -19,9 +19,8 @@ async def start_handler(message: Message):
 @router.message(Command("ping"))
 async def ping_handler(message: Message):
     latency = round(datetime.now().timestamp() - message.date.timestamp(), 2) * 1000
-    await message.answer(
-        get_string("get_ping_text").format(ej=Emoji.SETTINGS, lat=latency)
-    )
+    text = get_string("get_ping_text").format(emoji=Emoji.SETTINGS, latency=latency)
+    await message.answer(text)
 
 
 @router.message(Command("privacy"))
