@@ -8,6 +8,7 @@ class BotConfig(BaseSettings):
     db_database: SecretStr
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
+
 bot_config = BotConfig()
 
 
@@ -20,3 +21,7 @@ class Emoji:
     WARNING = "⚠️"
     ERROR = "⛔️"
     SETTINGS = "⚙️"
+
+
+# Приоритеты задач
+PRIORITY = {1: "Высокий", 2: "Средний", 3: "Низкий"}
