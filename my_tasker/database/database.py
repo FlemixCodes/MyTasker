@@ -10,10 +10,10 @@ class MongoDB:
         host: str = None,
         username: str = None,
         password: str = None,
-        myUrl: str = None,
-        isLocal=False,
+        my_url: str = None,
+        is_local: bool = False,
     ) -> None:
-        self._myUrl = myUrl
+        self._my_url = my_url
 
         self._host = host
         self._username = username
@@ -22,10 +22,10 @@ class MongoDB:
 
         self.client = None
         self.db = None
-        self._connect(isLocal)
+        self._connect(is_local)
 
-    def _connect(self, isLocal):
-        if isLocal == False and not self._myUrl:
+    def _connect(self, is_local: bool):
+        if not is_local and not self._my_url:
             connect_url_auto = (
                 "mongodb://{username}:{password}@{host}/?authSource={database}".format(
                     username=self._username,
@@ -34,36 +34,31 @@ class MongoDB:
                     database=self._database,
                 )
             )
-        elif isLocal == True and not self._myUrl:
+        elif is_local and not self._my_url:
             connect_url_auto = "mongodb://{host}/?authSource={database}".format(
                 host=self._host, database=self._database
             )
-        elif self._myUrl:
-            connect_url_auto = self._myUrl
+        elif self._my_url:
+            connect_url_auto = self._my_url
 
         self.client = AsyncIOMotorClient(connect_url_auto)
         self.db = self.client[self._database]
 
     async def ping(self):
-        if await self.client.admin.command("ping"):
-            return True
-        else:
-            return False
+        return await self.client.admin.command("ping")
 
-    async def insertOne(self, collection: str, document: dict):
+    async def insert_one(self, collection: str, document: dict):
         try:
             collection_ = self.db[collection]
-            result = await collection_.insert_one(dict)
-
+            result = await collection_.insert_one(document)
             return result
         except Exception as e:
             return e
 
-    async def insertMany(self, collection: str, document: dict):
+    async def insert_many(self, collection: str, document: dict):
         try:
             collection_ = self.db[collection]
             result = await collection_.insert_many(document)
-
             return result
         except Exception as e:
             return e
@@ -72,40 +67,36 @@ class MongoDB:
         try:
             collection_ = self.db[collection]
             result = await collection_.find(document)
-
             return result
         except Exception as e:
             return e
 
-    async def findOne(self, collection: str, document: dict):
+    async def find_one(self, collection: str, document: dict):
         try:
             collection_ = self.db[collection]
             result = await collection_.find_one(document)
-
             return result
         except Exception as e:
             return e
 
-    async def deleteOne(self, collection: str, document: dict):
+    async def delete_one(self, collection: str, document: dict):
         try:
             collection_ = self.db[collection]
             result = await collection_.delete_one(document)
-
             return result
         except Exception as e:
             return e
 
-    async def deleteMany(self, collection: str, document: dict):
+    async def delete_many(self, collection: str, document: dict):
         try:
             collection_ = self.db[collection]
             result = await collection_.delete_many(document)
-
             return result
         except Exception as e:
             return e
 
 
 database = MongoDB(
-    myUrl=bot_config.db_url.get_secret_value(),
+    my_url=bot_config.db_url.get_secret_value(),
     database=bot_config.db_database.get_secret_value(),
 )
