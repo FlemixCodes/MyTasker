@@ -9,19 +9,16 @@ strings = {
         "get_tasks_text": "Tasks",
         "get_task_text": "Task",
         "get_task_add_text": "Task_add",
-        "get_task_delete_text": "Tasks_delete"
+        "get_task_delete_text": "Tasks_delete",
     }
 }
 
 
-def getString(trackme, local = "ru"):
+def getString(trackme, local="ru") -> str | None:
     if local == "ru":
         str = strings.get(local, strings.get("ru"))
 
         if str is None:
-            raise KeyError(f"Not found [{local}] lang")
-        
-        try:
-            return str[trackme]
-        except KeyError:
-            raise
+            return
+
+        return str.get(trackme)
