@@ -4,7 +4,7 @@ from aiogram import Router
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message
 
-from my_tasker.config import Emoji, bot_config
+from my_tasker.config import Emoji
 from my_tasker.keyboards.menu import menu_keyboard
 from my_tasker.utils.lang import get_string
 
