@@ -1,15 +1,15 @@
 import asyncio
 
-from database import db
+from my_tasker.database import client
 
-db = db(myUrl="", database="")
 
 async def main():
-    try: 
-        await db.ping()
-        print("CORRECT!")
+    try:
+        result = await client.ping()
+        print(result)
     except Exception as e:
-        print("Error with db - " + e)
+        print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     asyncio.run(main())
